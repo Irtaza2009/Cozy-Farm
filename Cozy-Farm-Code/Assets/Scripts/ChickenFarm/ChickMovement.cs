@@ -36,6 +36,7 @@ public class ChickMovement : MonoBehaviour
 
     void LayEgg()
     {
+        FindObjectOfType<AudioManager>().Play("LayEgg");
         Instantiate(eggPrefab, transform.position, Quaternion.identity);
     }
 
