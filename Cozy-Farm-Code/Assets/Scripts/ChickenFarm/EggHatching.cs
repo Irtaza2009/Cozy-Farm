@@ -7,12 +7,14 @@ public class EggHatching : MonoBehaviour
     private GameManager gameManager;
 
     public float hatchTime = 10f;
+    public float hatchTimeSound = 8f;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         // Start the hatching process
         Invoke("Hatch", hatchTime);
+        Invoke("PlayHatchSound", hatchTimeSound);
     }
 
     void Hatch()
@@ -25,6 +27,13 @@ public class EggHatching : MonoBehaviour
 
     // Destroy the egg
     Destroy(gameObject);
+}
+
+void PlayHatchSound()
+{
+    // Play the hatch sound
+    FindObjectOfType<AudioManager>().Play("Hatch");
+    
 }
 
 }
