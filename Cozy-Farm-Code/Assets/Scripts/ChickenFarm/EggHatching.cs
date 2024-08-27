@@ -7,7 +7,7 @@ public class EggHatching : MonoBehaviour
     private GameManager gameManager;
 
     public float hatchTime = 10f;
-    public float hatchTimeSound = 8f;
+    public float hatchTimeSound = 9f;
 
     void Start()
     {

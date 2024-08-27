@@ -59,7 +59,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: LayEgg
     clip: {fileID: 8300000, guid: c7f0011d1a6434165ad4bbf6fd78c2c3, type: 3}
-    volume: 0.7
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
