@@ -9,12 +9,14 @@ public class FarmSwitchButtonHandler : MonoBehaviour
       
         PlayerPrefs.SetInt("previousScene", SceneManager.GetActiveScene().buildIndex);
         PlayerPrefs.Save();
+         FindObjectOfType<AudioManager>().Play("Click");
         SceneManager.LoadScene("Leaderboard");
       
     }
     public void SwitchToChickenFarm()
     {
-        //GameManager.Instance.SaveGameState();
+        GameManager.Instance.SaveGameState();
+        FindObjectOfType<AudioManager>().Play("Click");
         SceneManager.LoadScene("ChickenFarm");
         //GameManager.Instance.LoadGameState();
     }
@@ -22,6 +24,7 @@ public class FarmSwitchButtonHandler : MonoBehaviour
     public void SwitchToCowFarm()
     {
         GameManager.Instance.SaveGameState();
+         FindObjectOfType<AudioManager>().Play("Click");
         SceneManager.LoadScene("CowFarm");
        // GameManager.Instance.LoadGameState();
     }
@@ -29,6 +32,7 @@ public class FarmSwitchButtonHandler : MonoBehaviour
      public void SwitchToGarden()
     {
         GameManager.Instance.SaveGameState();
+         FindObjectOfType<AudioManager>().Play("Click");
         SceneManager.LoadScene("Garden");
         // GameManager.Instance.LoadGameState();
     }
@@ -42,6 +46,7 @@ public class FarmSwitchButtonHandler : MonoBehaviour
             PlayerPrefs.Save();
         }
         Debug.Log("Switching to previous scene: " + PlayerPrefs.GetInt("previousScene"));
+         FindObjectOfType<AudioManager>().Play("Click");
         SceneManager.LoadScene(PlayerPrefs.GetInt("previousScene"));
 
 

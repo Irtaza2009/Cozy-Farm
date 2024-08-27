@@ -46,6 +46,7 @@ public class Plot : MonoBehaviour
     {
         if (isHarvestable)
         {
+            FindObjectOfType<AudioManager>().Play("Harvest");
             animator.Play("IdlePlot"); // Optional: play a harvest animation or reset to idle
             isPlanted = false;
             isHarvestable = false;
