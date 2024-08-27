@@ -52,6 +52,11 @@ public class FarmSwitchButtonHandler : MonoBehaviour
 
     }
 
+    public void Mute()
+    {
+        FindObjectOfType<AudioManager>().OnMuteButtonClicked();
+        
+    }
 
 
 }
