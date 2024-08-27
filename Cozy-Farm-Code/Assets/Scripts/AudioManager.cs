@@ -52,5 +52,21 @@ public class AudioManager : MonoBehaviour
         }
         s.source.Play();
     }
+
+    public void Mute(bool isMuted)
+    {
+        foreach (Sound s in sounds)
+        {
+            s.source.mute = isMuted;
+        }
+    }
+
+    public void OnMuteButtonClicked()
+    {
+        bool isMuted = sounds[0].source.mute; // Check the current mute state of any sound
+        Mute(!isMuted); // Toggle mute
+    }
+
+
     
 }
