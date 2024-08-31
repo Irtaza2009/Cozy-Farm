@@ -47,7 +47,7 @@ MonoBehaviour:
   sounds:
   - name: Hatch
     clip: {fileID: 8300000, guid: ca51cebb70d624ea595647df275503cb, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -59,13 +59,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: LayEgg
     clip: {fileID: 8300000, guid: c7f0011d1a6434165ad4bbf6fd78c2c3, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Harvest
     clip: {fileID: 8300000, guid: de087b1682b464238a46e38364b61c68, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
