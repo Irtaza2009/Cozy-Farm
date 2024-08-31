@@ -13,6 +13,17 @@ public class FarmSwitchButtonHandler : MonoBehaviour
         SceneManager.LoadScene("Leaderboard");
       
     }
+
+    public void SwitchToSettings()
+    {
+      
+        PlayerPrefs.SetInt("previousScene", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.Save();
+         FindObjectOfType<AudioManager>().Play("Click");
+        SceneManager.LoadScene("Settings");
+      
+    }
+
     public void SwitchToChickenFarm()
     {
         GameManager.Instance.SaveGameState();
