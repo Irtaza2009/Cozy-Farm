@@ -93,3 +93,6 @@ crashlytics-build.properties
 /[Aa]ssets/Parse.meta
 
 /[Aa]ssets/Plugins.meta
+
+/[Aa]ssets/Premium/
+/[Aa]ssets/Premium.meta
