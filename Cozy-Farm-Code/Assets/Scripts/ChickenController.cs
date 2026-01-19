@@ -9,8 +9,8 @@ public class ChickenController : MonoBehaviour
 
     [Header("Egg")]
     public GameObject eggPrefab;
-    public float minEggCooldown = 8f;
-    public float maxEggCooldown = 16f;
+    public float minEggCooldown = 3f; //8f;
+    public float maxEggCooldown =  35f; //16f;
 
     [Header("Animation")]
     public Animator animator;
