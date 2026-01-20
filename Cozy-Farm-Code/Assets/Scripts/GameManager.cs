@@ -9,6 +9,16 @@ public class GameManager : MonoBehaviour
     private Dictionary<FarmResourceType, int> resources =
         new Dictionary<FarmResourceType, int>();
 
+    [Serializable]
+    public struct ResourceEntry
+    {
+        public FarmResourceType type;
+        public int amount;
+    }
+
+    [Header("Debug / Balancing")]
+    [SerializeField] private List<ResourceEntry> startingResources = new List<ResourceEntry>();
+
     public event Action<FarmResourceType, int> OnResourceChanged;
 
     void Awake()
@@ -25,6 +35,29 @@ public class GameManager : MonoBehaviour
         foreach (FarmResourceType type in Enum.GetValues(typeof(FarmResourceType)))
         {
             resources[type] = 0;
+        }
+
+        foreach (var entry in startingResources)
+        {
+            resources[entry.type] = entry.amount;
+        }
+    }
+
+    void OnValidate()
+    {
+        // Ensure there is at least one entry per resource type so it is always editable in the inspector.
+        var existing = new HashSet<FarmResourceType>();
+        for (int i = 0; i < startingResources.Count; i++)
+        {
+            existing.Add(startingResources[i].type);
+        }
+
+        foreach (FarmResourceType type in Enum.GetValues(typeof(FarmResourceType)))
+        {
+            if (!existing.Contains(type))
+            {
+                startingResources.Add(new ResourceEntry { type = type, amount = 0 });
+            }
         }
     }
 
