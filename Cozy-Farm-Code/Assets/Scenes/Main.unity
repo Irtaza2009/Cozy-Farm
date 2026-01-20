@@ -814,6 +814,57 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &285277002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 285277004}
+  - component: {fileID: 285277003}
+  m_Layer: 0
+  m_Name: IslandManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &285277003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285277002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de544a136c8e0b4f9676f93dcbc0c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  fenceDividers:
+  - {fileID: 226707779}
+  baseCost: 500
+  costIncrease: 500
+  costText: {fileID: 321505730}
+  costPrefix: 'Cost: '
+  expandButton: {fileID: 865594086}
+--- !u!4 &285277004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285277002}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &321505728
 GameObject:
   m_ObjectHideFlags: 0
@@ -5856,7 +5907,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 4216388969009364805, guid: 7c266a6b201333c48aea38cef08fa13b, type: 3}
     m_PressedSprite: {fileID: -8140880815327101692, guid: 7c266a6b201333c48aea38cef08fa13b, type: 3}
     m_SelectedSprite: {fileID: -7545561599948321032, guid: 7c266a6b201333c48aea38cef08fa13b, type: 3}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 7787724450018884072, guid: 7c266a6b201333c48aea38cef08fa13b, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -5868,7 +5919,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2092332358}
+      - m_Target: {fileID: 285277003}
         m_TargetAssemblyTypeName: IslandExpansionManager, Assembly-CSharp
         m_MethodName: ExpandIsland
         m_Mode: 1
@@ -82764,7 +82815,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2092332357}
   - component: {fileID: 2092332356}
-  - component: {fileID: 2092332358}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -82790,7 +82840,7 @@ MonoBehaviour:
   - type: 1
     amount: 0
   - type: 2
-    amount: 50
+    amount: 1500
   - type: 3
     amount: 0
   - type: 4
@@ -82810,22 +82860,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2092332358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2092332355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9de544a136c8e0b4f9676f93dcbc0c8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  fenceDividers:
-  - {fileID: 226707779}
-  baseCost: 500
-  costIncrease: 500
 --- !u!1 &2093801334
 GameObject:
   m_ObjectHideFlags: 0
@@ -83047,3 +83081,4 @@ SceneRoots:
   - {fileID: 909502195}
   - {fileID: 1273670417}
   - {fileID: 2092332357}
+  - {fileID: 285277004}

@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class IslandExpansionManager : MonoBehaviour
 {
@@ -6,10 +8,33 @@ public class IslandExpansionManager : MonoBehaviour
     [SerializeField] private GameObject[] fenceDividers;
 
     [Header("Cost Settings")]
-    [SerializeField] private int baseCost = 50;
-    [SerializeField] private int costIncrease = 50;
+    [SerializeField] private int baseCost = 500;
+    [SerializeField] private int costIncrease = 500;
+
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI costText;
+    [SerializeField] private string costPrefix = "Cost: ";
+    [SerializeField] private Button expandButton;
 
     private int currentLevel = 0;
+
+    void OnEnable()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnResourceChanged += OnResourceChanged;
+        }
+
+        RefreshUI();
+    }
+
+    void OnDisable()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnResourceChanged -= OnResourceChanged;
+        }
+    }
 
     public void ExpandIsland()
     {
@@ -31,6 +56,47 @@ public class IslandExpansionManager : MonoBehaviour
         fenceDividers[currentLevel].SetActive(false);
         currentLevel++;
 
+        RefreshUI();
+
         Debug.Log("Island expanded to level " + currentLevel);
+    }
+
+    private void OnResourceChanged(FarmResourceType type, int amount)
+    {
+        if (type != FarmResourceType.Coin) return;
+        RefreshUI();
+    }
+
+    private void RefreshUI()
+    {
+        if (costText != null)
+        {
+            if (currentLevel >= fenceDividers.Length)
+            {
+                costText.text = "Max";
+            }
+            else
+            {
+                costText.text = costPrefix + GetNextCost();
+            }
+        }
+
+        if (expandButton != null)
+        {
+            if (currentLevel >= fenceDividers.Length)
+            {
+                expandButton.interactable = false;
+            }
+            else
+            {
+                int coins = GameManager.Instance.GetResource(FarmResourceType.Coin);
+                expandButton.interactable = coins >= GetNextCost();
+            }
+        }
+    }
+
+    private int GetNextCost()
+    {
+        return baseCost + currentLevel * costIncrease;
     }
 }
