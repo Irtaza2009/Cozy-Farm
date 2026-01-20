@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     void OnValidate()
     {
         // Ensure there is at least one entry per resource type so it is always editable in the inspector.
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+#endif
 
     public int GetResource(FarmResourceType type)
     {
