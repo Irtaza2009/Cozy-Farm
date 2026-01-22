@@ -22,6 +22,7 @@ public class IslandExpansionManager : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
+            SyncFromResource();
             GameManager.Instance.OnResourceChanged += OnResourceChanged;
         }
 
@@ -52,6 +53,7 @@ public class IslandExpansionManager : MonoBehaviour
 
 
         GameManager.Instance.AddResource(FarmResourceType.Coin, -cost);
+        GameManager.Instance.AddResource(FarmResourceType.Island, 1);
 
         fenceDividers[currentLevel].SetActive(false);
         currentLevel++;
@@ -63,8 +65,30 @@ public class IslandExpansionManager : MonoBehaviour
 
     private void OnResourceChanged(FarmResourceType type, int amount)
     {
-        if (type != FarmResourceType.Coin) return;
+        if (type != FarmResourceType.Coin && type != FarmResourceType.Island) return;
+
+        if (type == FarmResourceType.Island)
+        {
+            SyncFromResource();
+        }
+
         RefreshUI();
+    }
+
+    private void SyncFromResource()
+    {
+        int islandLevel = Mathf.Clamp(GameManager.Instance.GetResource(FarmResourceType.Island), 0, fenceDividers.Length);
+        currentLevel = islandLevel;
+
+        // Disable already-opened fence sections based on saved level.
+        for (int i = 0; i < fenceDividers.Length; i++)
+        {
+            bool shouldBeOpen = i < currentLevel;
+            if (fenceDividers[i] != null)
+            {
+                fenceDividers[i].SetActive(!shouldBeOpen);
+            }
+        }
     }
 
     private void RefreshUI()

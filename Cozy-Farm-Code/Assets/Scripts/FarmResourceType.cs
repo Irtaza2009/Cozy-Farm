@@ -4,6 +4,7 @@ public enum FarmResourceType
     Milk,
     Coin,
     Hen,
+    Island,
     Wool,
     Wheat
 }
