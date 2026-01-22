@@ -17,8 +17,6 @@ public class ChickenManager : MonoBehaviour
     [SerializeField] private string costPrefix = "Cost: ";
     [SerializeField] private Button buyButton;
 
-    private int chickenCount = 0;
-
     void OnEnable()
     {
         if (GameManager.Instance != null)
@@ -52,18 +50,23 @@ public class ChickenManager : MonoBehaviour
 
         GameManager.Instance.AddResource(FarmResourceType.Coin, -cost);
 
+        // hens are treated as a resource for tracking/UI
+        GameManager.Instance.AddResource(FarmResourceType.Hen, 1);
+
         Instantiate(chickenPrefab, spawnPosition, Quaternion.identity);
-        chickenCount++;
 
         RefreshUI();
 
-        Debug.Log("Chicken bought. Total chickens: " + chickenCount);
+        int totalHens = GameManager.Instance.GetResource(FarmResourceType.Hen);
+        Debug.Log("Chicken bought. Total hens: " + totalHens);
     }
 
     private void OnResourceChanged(FarmResourceType type, int amount)
     {
-        if (type != FarmResourceType.Coin) return;
-        RefreshUI();
+        if (type == FarmResourceType.Coin || type == FarmResourceType.Hen)
+        {
+            RefreshUI();
+        }
     }
 
     private void RefreshUI()
@@ -82,6 +85,9 @@ public class ChickenManager : MonoBehaviour
 
     private int GetNextCost()
     {
-        return baseCost + chickenCount * costIncrease;
+        int currentHens = GameManager.Instance != null
+            ? GameManager.Instance.GetResource(FarmResourceType.Hen)
+            : 0;
+        return baseCost + currentHens * costIncrease;
     }
 }
