@@ -6,7 +6,9 @@ public class ChickenManager : MonoBehaviour
 {
     [Header("Chicken")]
     [SerializeField] private GameObject chickenPrefab;
-    [SerializeField] private Vector3 spawnPosition = Vector3.zero;
+    [SerializeField] private GameObject nestEggPrefab;
+    [SerializeField] private Vector2 spawnAreaMin = new Vector2(-2f, -2f);
+    [SerializeField] private Vector2 spawnAreaMax = new Vector2(2f, 2f);
 
     [Header("Cost Settings")]
     [SerializeField] private int baseCost = 50;
@@ -50,15 +52,26 @@ public class ChickenManager : MonoBehaviour
 
         GameManager.Instance.AddResource(FarmResourceType.Coin, -cost);
 
-        // hens are treated as a resource for tracking/UI
-        GameManager.Instance.AddResource(FarmResourceType.Hen, 1);
+        Vector3 spawnPos = GetRandomSpawnPosition();
 
-        Instantiate(chickenPrefab, spawnPosition, Quaternion.identity);
+        // Spawn nest egg; it will hatch into a chicken after a delay.
+        var nest = Instantiate(nestEggPrefab, spawnPos, Quaternion.identity);
+        var nestEgg = nest != null ? nest.GetComponent<NestEgg>() : null;
+        if (nestEgg != null)
+        {
+            nestEgg.SetChickenPrefab(chickenPrefab);
+        }
+        else
+        {
+            Debug.LogWarning("Nest egg prefab missing NestEgg component; spawning chicken immediately as fallback.", nest);
+            Instantiate(chickenPrefab, spawnPos, Quaternion.identity);
+            GameManager.Instance.AddResource(FarmResourceType.Hen, 1);
+        }
 
         RefreshUI();
 
         int totalHens = GameManager.Instance.GetResource(FarmResourceType.Hen);
-        Debug.Log("Chicken bought. Total hens: " + totalHens);
+        Debug.Log("Nest placed. Current hens: " + totalHens);
     }
 
     private void OnResourceChanged(FarmResourceType type, int amount)
@@ -89,5 +102,12 @@ public class ChickenManager : MonoBehaviour
             ? GameManager.Instance.GetResource(FarmResourceType.Hen)
             : 0;
         return baseCost + currentHens * costIncrease;
+    }
+
+    private Vector3 GetRandomSpawnPosition()
+    {
+        float x = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
+        float y = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
+        return new Vector3(x, y, 0f);
     }
 }
