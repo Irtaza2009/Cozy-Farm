@@ -15,6 +15,7 @@ public class IslandExpansionManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private string costPrefix = "Cost: ";
     [SerializeField] private Button expandButton;
+    [SerializeField] private ChickenManager chickenManager;
 
     private int currentLevel = 0;
 
@@ -61,6 +62,11 @@ public class IslandExpansionManager : MonoBehaviour
         RefreshUI();
 
         Debug.Log("Island expanded to level " + currentLevel);
+        
+        if (chickenManager != null)
+        {
+            chickenManager.ForceRefreshUI();
+        }
     }
 
     private void OnResourceChanged(FarmResourceType type, int amount)

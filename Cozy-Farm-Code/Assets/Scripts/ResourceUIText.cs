@@ -7,6 +7,7 @@ public class ResourceUIText : MonoBehaviour
     [Header("UI")]
     [SerializeField] private FarmResourceType resourceType;
     [SerializeField] private string prefix = "Eggs: ";
+    [SerializeField] private bool showHenCapacity = false; // when true and resourceType == Hen, display current/max
 
     private TextMeshProUGUI text;
 
@@ -41,12 +42,23 @@ public class ResourceUIText : MonoBehaviour
 
     void OnResourceChanged(FarmResourceType type, int newAmount)
     {
-        if (type != resourceType) return;
-        UpdateText(newAmount);
+        if (type == resourceType || (showHenCapacity && resourceType == FarmResourceType.Hen && type == FarmResourceType.Island))
+        {
+            UpdateText(GameManager.Instance.GetResource(resourceType));
+        }
     }
 
     void UpdateText(int amount)
     {
-        text.text = prefix + amount;
+        if (showHenCapacity && resourceType == FarmResourceType.Hen)
+        {
+            int islands = GameManager.Instance != null ? GameManager.Instance.GetResource(FarmResourceType.Island) : 0;
+            int capacity = islands * 5;
+            text.text = prefix + amount + "/" + capacity;
+        }
+        else
+        {
+            text.text = prefix + amount;
+        }
     }
 }

@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Panels")]
     [SerializeField] private GameObject shopPanel;
+    [SerializeField] private ChickenManager chickenManager;
 
     private bool isShopOpen;
 
@@ -30,6 +31,11 @@ public class UIManager : MonoBehaviour
     {
         isShopOpen = !isShopOpen;
         shopPanel.SetActive(isShopOpen);
+
+        if (isShopOpen && chickenManager != null)
+        {
+            chickenManager.ForceRefreshUI();
+        }
     }
 
     public void CloseShop()

@@ -1281,6 +1281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   resourceType: 4
   prefix: 'Islands: '
+  showHenCapacity: 0
 --- !u!114 &395720859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3788,6 +3789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   resourceType: 0
   prefix: 'Eggs: '
+  showHenCapacity: 0
 --- !u!114 &600160943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3939,6 +3941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   resourceType: 3
   prefix: 'Hens: '
+  showHenCapacity: 1
 --- !u!114 &659081648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81615,6 +81618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   resourceType: 2
   prefix: 'Coins: '
+  showHenCapacity: 0
 --- !u!114 &1793121673
 MonoBehaviour:
   m_ObjectHideFlags: 0

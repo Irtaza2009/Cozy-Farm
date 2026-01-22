@@ -30,7 +30,6 @@ public class NestEgg : MonoBehaviour
         }
 
         Instantiate(chickenPrefab, transform.position + spawnOffset, Quaternion.identity);
-        GameManager.Instance.AddResource(FarmResourceType.Hen, 1);
         Destroy(gameObject);
     }
 }

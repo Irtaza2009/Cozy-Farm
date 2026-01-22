@@ -41,6 +41,15 @@ public class ChickenManager : MonoBehaviour
     {
         Debug.Log("Attempting to buy chicken...");
 
+        int capacity = GetHenCapacity();
+        int currentHens = GameManager.Instance.GetResource(FarmResourceType.Hen);
+        if (capacity <= 0 || currentHens >= capacity)
+        {
+            Debug.Log("Hen capacity reached. Expand island to increase cap.");
+            RefreshUI();
+            return;
+        }
+
         int cost = GetNextCost();
         int coins = GameManager.Instance.GetResource(FarmResourceType.Coin);
 
@@ -56,6 +65,7 @@ public class ChickenManager : MonoBehaviour
 
         // Spawn nest egg; it will hatch into a chicken after a delay.
         var nest = Instantiate(nestEggPrefab, spawnPos, Quaternion.identity);
+        GameManager.Instance.AddResource(FarmResourceType.Hen, 1);
         var nestEgg = nest != null ? nest.GetComponent<NestEgg>() : null;
         if (nestEgg != null)
         {
@@ -84,15 +94,26 @@ public class ChickenManager : MonoBehaviour
 
     private void RefreshUI()
     {
+        int capacity = GetHenCapacity();
+        int hens = GameManager.Instance.GetResource(FarmResourceType.Hen);
+
         if (costText != null)
         {
-            costText.text = costPrefix + GetNextCost();
+            if (capacity > 0 && hens >= capacity)
+            {
+                costText.text = "Max";
+            }
+            else
+            {
+                costText.text = costPrefix + GetNextCost();
+            }
         }
 
         if (buyButton != null)
         {
             int coins = GameManager.Instance.GetResource(FarmResourceType.Coin);
-            buyButton.interactable = coins >= GetNextCost();
+            bool hasCapacity = capacity > 0 && hens < capacity;
+            buyButton.interactable = hasCapacity && coins >= GetNextCost();
         }
     }
 
@@ -104,10 +125,22 @@ public class ChickenManager : MonoBehaviour
         return baseCost + currentHens * costIncrease;
     }
 
+    private int GetHenCapacity()
+    {
+        if (GameManager.Instance == null) return 0;
+        int islands = GameManager.Instance.GetResource(FarmResourceType.Island);
+        return islands * 5;
+    }
+
     private Vector3 GetRandomSpawnPosition()
     {
         float x = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
         float y = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
         return new Vector3(x, y, 0f);
+    }
+
+    public void ForceRefreshUI()
+    {
+        RefreshUI();
     }
 }
