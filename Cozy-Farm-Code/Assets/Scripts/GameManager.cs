@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    public static bool HasInstance => Instance != null;
+    public static event Action<GameManager> OnInstanceReady;
+
     private Dictionary<FarmResourceType, int> resources =
         new Dictionary<FarmResourceType, int>();
 
@@ -41,6 +44,9 @@ public class GameManager : MonoBehaviour
         {
             resources[entry.type] = entry.amount;
         }
+
+        OnInstanceReady?.Invoke(this);
+        OnInstanceReady = null; // ensure callbacks fire once
     }
 
 #if UNITY_EDITOR
@@ -74,5 +80,17 @@ public class GameManager : MonoBehaviour
         OnResourceChanged?.Invoke(type, resources[type]);
 
         Debug.Log($"{type} +{amount} → {resources[type]}");
+    }
+
+    public static void WhenReady(Action<GameManager> callback)
+    {
+        if (Instance != null)
+        {
+            callback?.Invoke(Instance);
+        }
+        else
+        {
+            OnInstanceReady += callback;
+        }
     }
 }

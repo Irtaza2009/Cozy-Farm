@@ -19,22 +19,32 @@ public class ChickenManager : MonoBehaviour
     [SerializeField] private string costPrefix = "Cost: ";
     [SerializeField] private Button buyButton;
 
+    private System.Action<GameManager> readyHandler;
+
     void OnEnable()
     {
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.OnResourceChanged += OnResourceChanged;
-        }
-
-        RefreshUI();
+        readyHandler = OnGameManagerReady;
+        GameManager.WhenReady(readyHandler);
     }
 
     void OnDisable()
     {
-        if (GameManager.Instance != null)
+        if (readyHandler != null)
+        {
+            GameManager.OnInstanceReady -= readyHandler;
+            readyHandler = null;
+        }
+
+        if (GameManager.HasInstance)
         {
             GameManager.Instance.OnResourceChanged -= OnResourceChanged;
         }
+    }
+
+    private void OnGameManagerReady(GameManager gm)
+    {
+        gm.OnResourceChanged += OnResourceChanged;
+        RefreshUI();
     }
 
     public void BuyChicken()

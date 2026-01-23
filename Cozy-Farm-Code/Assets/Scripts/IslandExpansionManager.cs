@@ -18,24 +18,33 @@ public class IslandExpansionManager : MonoBehaviour
     [SerializeField] private ChickenManager chickenManager;
 
     private int currentLevel = 0;
+    private System.Action<GameManager> readyHandler;
 
     void OnEnable()
     {
-        if (GameManager.Instance != null)
-        {
-            SyncFromResource();
-            GameManager.Instance.OnResourceChanged += OnResourceChanged;
-        }
-
-        RefreshUI();
+        readyHandler = OnGameManagerReady;
+        GameManager.WhenReady(readyHandler);
     }
 
     void OnDisable()
     {
-        if (GameManager.Instance != null)
+        if (readyHandler != null)
+        {
+            GameManager.OnInstanceReady -= readyHandler;
+            readyHandler = null;
+        }
+
+        if (GameManager.HasInstance)
         {
             GameManager.Instance.OnResourceChanged -= OnResourceChanged;
         }
+    }
+
+    private void OnGameManagerReady(GameManager gm)
+    {
+        SyncFromResource();
+        gm.OnResourceChanged += OnResourceChanged;
+        RefreshUI();
     }
 
     public void ExpandIsland()
@@ -84,7 +93,7 @@ public class IslandExpansionManager : MonoBehaviour
     private void SyncFromResource()
     {
         int islandLevel = Mathf.Clamp(GameManager.Instance.GetResource(FarmResourceType.Island), 0, fenceDividers.Length);
-        currentLevel = islandLevel;
+        currentLevel = islandLevel - 1; // first level is base island
 
         // Disable already-opened fence sections based on saved level.
         for (int i = 0; i < fenceDividers.Length; i++)
