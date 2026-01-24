@@ -11,6 +11,7 @@ public class CollectibleItem : MonoBehaviour
 
     void OnMouseDown()
     {
+        AudioManager.Instance?.PlayClick();
         Collect();
     }
 

@@ -123,6 +123,7 @@ public class ChickenController : MonoBehaviour
         yield return new WaitForSeconds(1.5f); // sitting idle
 
         PlayAnimation(AnimStand);
+        AudioManager.Instance?.PlayEggLay();
 
         yield return new WaitForSeconds(1f); // time to stand up
         

@@ -21,6 +21,9 @@ public class NestEgg : MonoBehaviour
     private IEnumerator HatchRoutine()
     {
         yield return new WaitForSeconds(hatchDelay);
+        AudioManager.Instance?.PlayEggCrack();
+
+         yield return new WaitForSeconds(2f); // wait for cracking sound
 
         if (chickenPrefab == null)
         {
@@ -30,6 +33,7 @@ public class NestEgg : MonoBehaviour
         }
 
         Instantiate(chickenPrefab, transform.position + spawnOffset, Quaternion.identity);
+        
         Destroy(gameObject);
     }
 }
