@@ -6,24 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Play.unity
-    guid: a1a21930664e2417cbf77af9e452b8eb
+    path: Assets/Scenes/Menu.unity
+    guid: 5a6bd7ba1902118428f07bb606cdd1f3
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 5d8f8c21fa2714181a35b67bd98bcc91
-  - enabled: 1
-    path: Assets/Scenes/ChickenFarm.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/CowFarm.unity
-    guid: 011f02f19d3f54a0f913e8974b863604
-  - enabled: 1
-    path: Assets/Scenes/Garden.unity
-    guid: 988711d50500a4256ba8f8484dd27077
-  - enabled: 1
-    path: Assets/Scenes/Leaderboard.unity
-    guid: ee8e84632f6fd4c06a0ffbf2a7a9e926
-  - enabled: 1
-    path: Assets/Scenes/Settings.unity
-    guid: 3fb18467e898a44f9a8c9515e7d26a2c
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

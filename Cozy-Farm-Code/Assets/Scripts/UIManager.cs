@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -142,5 +143,10 @@ public class UIManager : MonoBehaviour
             }
             musicButton.spriteState = spriteState;
         }
+    }
+
+    public void PlayButton()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }
 }
