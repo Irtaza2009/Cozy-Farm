@@ -53,7 +53,7 @@ public class ResourceUIText : MonoBehaviour
         if (showHenCapacity && resourceType == FarmResourceType.Hen)
         {
             int islands = GameManager.Instance != null ? GameManager.Instance.GetResource(FarmResourceType.Island) : 0;
-            int capacity = islands * 5;
+            int capacity = islands * 10;
             text.text = prefix + amount + "/" + capacity;
         }
         else

@@ -14,6 +14,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip eggCrackSfx;
     [SerializeField] private AudioClip eggLaySfx;
 
+    public bool MusicEnabled { get; private set; } = true;
+    public bool SfxEnabled { get; private set; } = true;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -33,6 +36,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void SetMusicEnabled(bool enabled)
+    {
+        MusicEnabled = enabled;
+        if (musicSource == null) return;
+        musicSource.mute = !enabled;
+    }
+
+    public void SetSfxEnabled(bool enabled)
+    {
+        SfxEnabled = enabled;
+    }
+
     public void PlayClick()
     {
         PlaySfx(clickSfx);
@@ -50,7 +65,7 @@ public class AudioManager : MonoBehaviour
 
     private void PlaySfx(AudioClip clip)
     {
-        if (sfxSource == null || clip == null) return;
+        if (!SfxEnabled || sfxSource == null || clip == null) return;
         sfxSource.PlayOneShot(clip);
     }
 }

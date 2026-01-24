@@ -139,7 +139,7 @@ public class ChickenManager : MonoBehaviour
     {
         if (GameManager.Instance == null) return 0;
         int islands = GameManager.Instance.GetResource(FarmResourceType.Island);
-        return islands * 5;
+        return islands * 10;
     }
 
     private Vector3 GetRandomSpawnPosition()
