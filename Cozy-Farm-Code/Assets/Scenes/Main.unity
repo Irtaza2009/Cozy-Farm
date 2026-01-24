@@ -4328,7 +4328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   dragSpeed: 1
-  enablePanning: 0
+  smoothTime: 0.08
+  enablePanning: 1
   islandWidth: 10
   islandHeight: 10
 --- !u!1 &757560526

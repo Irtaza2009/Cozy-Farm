@@ -4,16 +4,19 @@ using UnityEngine;
 public class CameraPanController : MonoBehaviour
 {
     [Header("Panning")]
-    [SerializeField] private float dragSpeed = 1f;
-    [SerializeField] private bool enablePanning = false;
+    [SerializeField] private float dragSpeed = 0.01f;
+    [SerializeField] private float smoothTime = 0.08f;
+    [SerializeField] private bool enablePanning = true;
 
     [Header("Island Size")]
     [SerializeField] private float islandWidth = 10f;
     [SerializeField] private float islandHeight = 10f;
 
     private Camera cam;
-    private Vector3 lastMouseWorld;
-    private Vector3 originPosition;
+
+    private Vector3 dragStartMouse;
+    private Vector3 dragStartCam;
+    private Vector3 velocity;
 
     private float minX, maxX, minY, maxY;
 
@@ -22,7 +25,6 @@ public class CameraPanController : MonoBehaviour
     void Awake()
     {
         cam = GetComponent<Camera>();
-        originPosition = transform.position; // use scene placement as starting anchor
         RecalculateBounds();
     }
 
@@ -52,19 +54,29 @@ public class CameraPanController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            lastMouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
+            dragStartMouse = Input.mousePosition;
+            dragStartCam = transform.position;
         }
 
         if (Input.GetMouseButton(0))
         {
-            Vector3 currentMouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 delta = lastMouseWorld - currentMouseWorld;
+            Vector3 mouseDelta = Input.mousePosition - dragStartMouse;
 
-            Vector3 targetPos = transform.position + delta * dragSpeed;
-            targetPos.z = transform.position.z;
+            // Convert pixels → world units
+            float worldPerPixel = cam.orthographicSize * 2f / Screen.height;
 
-            transform.position = ClampToBounds(targetPos);
-            lastMouseWorld = currentMouseWorld;
+            Vector3 target = dragStartCam
+                - new Vector3(mouseDelta.x * worldPerPixel, mouseDelta.y * worldPerPixel, 0f)
+                * dragSpeed;
+
+            target = ClampToBounds(target);
+
+            transform.position = Vector3.SmoothDamp(
+                transform.position,
+                target,
+                ref velocity,
+                smoothTime
+            );
         }
     }
 
@@ -88,37 +100,32 @@ public class CameraPanController : MonoBehaviour
             ? GameManager.Instance.GetResource(FarmResourceType.Island)
             : 1;
 
-        enablePanning = islands > 1;
+        //enablePanning = islands > 1;
 
-        // Base island rectangle centered on the scene placement of the camera.
-        minX = originPosition.x - islandWidth;
-        maxX = originPosition.x + islandWidth;
-        minY = originPosition.y - islandHeight;
-        maxY = originPosition.y + islandHeight;
+        float baseX = transform.position.x;
+        float baseY = transform.position.y;
+
+        minX = baseX - islandWidth;
+        maxX = baseX + islandWidth;
+        minY = baseY - islandHeight;
+        maxY = baseY + islandHeight;
 
         if (islands >= 2)
-        {
-            // Extend to the right for island 2.
             maxX += islandWidth;
-        }
 
         if (islands >= 3)
-        {
-            // Extend downward for island 3.
             minY -= islandHeight;
-        }
 
-        // Clamp camera immediately
         transform.position = ClampToBounds(transform.position);
     }
 
     private Vector3 ClampToBounds(Vector3 pos)
     {
-        float camHalfWidth = cam.orthographicSize * cam.aspect;
-        float camHalfHeight = cam.orthographicSize;
+        float halfW = cam.orthographicSize * cam.aspect;
+        float halfH = cam.orthographicSize;
 
-        pos.x = Mathf.Clamp(pos.x, minX + camHalfWidth, maxX - camHalfWidth);
-        pos.y = Mathf.Clamp(pos.y, minY + camHalfHeight, maxY - camHalfHeight);
+        pos.x = Mathf.Clamp(pos.x, minX + halfW, maxX - halfW);
+        pos.y = Mathf.Clamp(pos.y, minY + halfH, maxY - halfH);
 
         return pos;
     }
