@@ -116,7 +116,7 @@ public class ChickenController : MonoBehaviour
         yield return new WaitForSeconds(2f); // time to sit down
 
         // Instantiate egg
-        Instantiate(eggPrefab, transform.position + Vector3.down * 0.2f, Quaternion.identity);
+        Instantiate(eggPrefab, transform.position + Vector3.down * 0.05f, Quaternion.identity);
 
         PlayAnimation(AnimSitIdle);
 

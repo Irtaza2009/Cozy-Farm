@@ -49,33 +49,19 @@ public class IslandExpansionManager : MonoBehaviour
 
     public void ExpandIsland()
     {
-        Debug.Log("Attempting to expand island...");
         if (currentLevel >= fenceDividers.Length)
             return;
 
-        int cost = baseCost + currentLevel * costIncrease;
+        int cost = GetNextCost();
 
         if (GameManager.Instance.GetResource(FarmResourceType.Coin) < cost)
-        {            
-            Debug.Log("Not enough coins to expand island. Coins: " + GameManager.Instance.GetResource(FarmResourceType.Coin));
             return;
-        }
-
 
         GameManager.Instance.AddResource(FarmResourceType.Coin, -cost);
         GameManager.Instance.AddResource(FarmResourceType.Island, 1);
 
-        fenceDividers[currentLevel].SetActive(false);
-        currentLevel++;
-
-        RefreshUI();
-
-        Debug.Log("Island expanded to level " + currentLevel);
-        
         if (chickenManager != null)
-        {
             chickenManager.ForceRefreshUI();
-        }
     }
 
     private void OnResourceChanged(FarmResourceType type, int amount)
@@ -92,17 +78,20 @@ public class IslandExpansionManager : MonoBehaviour
 
     private void SyncFromResource()
     {
-        int islandLevel = Mathf.Clamp(GameManager.Instance.GetResource(FarmResourceType.Island), 0, fenceDividers.Length);
-        currentLevel = islandLevel - 1; // first level is base island
+        int islandLevel = Mathf.Clamp(
+            GameManager.Instance.GetResource(FarmResourceType.Island),
+            1,
+            fenceDividers.Length + 1
+        );
 
-        // Disable already-opened fence sections based on saved level.
+        // Number of removed fences
+        currentLevel = islandLevel - 1;
+
         for (int i = 0; i < fenceDividers.Length; i++)
         {
-            bool shouldBeOpen = i < currentLevel;
-            if (fenceDividers[i] != null)
-            {
-                fenceDividers[i].SetActive(!shouldBeOpen);
-            }
+            // i = 0 → removed when islandLevel >= 2
+            bool unlocked = islandLevel >= i + 2;
+            fenceDividers[i].SetActive(!unlocked);
         }
     }
 

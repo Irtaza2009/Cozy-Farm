@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6609477336133684623}
   - component: {fileID: 5915497910779329259}
   - component: {fileID: 4709582309363398430}
+  - component: {fileID: 1267435551609666421}
   m_Layer: 0
   m_Name: Egg
   m_TagString: Untagged
@@ -79,9 +80,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -468706167
+  m_SortingLayer: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -290849068421539609, guid: 14b7dc2b2c0ffc94c8d13791f04eab34, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -165,4 +166,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   resourceType: 0
   amount: 1
-  playPopEffect: 1
+--- !u!114 &1267435551609666421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7348216609560956311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2172bf1e937939c488fe6637175f7aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::YSort
+  offset: -10
