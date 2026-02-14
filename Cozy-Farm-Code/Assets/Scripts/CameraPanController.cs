@@ -12,11 +12,17 @@ public class CameraPanController : MonoBehaviour
     [SerializeField] private float islandWidth = 10f;
     [SerializeField] private float islandHeight = 10f;
 
+    [Header("UI")]
+    [SerializeField] private GameObject panHint; // hint text to hide after first pan
+    [SerializeField] private float panDetectThreshold = 0.05f;
+
     private Camera cam;
 
     private Vector3 dragStartMouse;
     private Vector3 dragStartCam;
     private Vector3 velocity;
+
+    private bool hasPanned;
 
     private float minX, maxX, minY, maxY;
 
@@ -70,6 +76,12 @@ public class CameraPanController : MonoBehaviour
                 * dragSpeed;
 
             target = ClampToBounds(target);
+
+            if (!hasPanned && (target - transform.position).sqrMagnitude > panDetectThreshold * panDetectThreshold)
+            {
+                hasPanned = true;
+                if (panHint != null) panHint.SetActive(false);
+            }
 
             transform.position = Vector3.SmoothDamp(
                 transform.position,
