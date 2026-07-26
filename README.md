@@ -1,8 +1,10 @@
 # Cozy Farm
 
+<img width="1477" height="849" alt="chrome_X5y6Zea3uW" src="https://github.com/user-attachments/assets/acefc0fd-c44a-4691-b896-13c486c0294e" />
+
 A fun and engaging farming simulation game where you can raise chickens, cows, and grow fruits! Gather resources, plant crops, and expand your farm as you manage your animals and plots.
 
-Currently working on a improved V2 version! The chicken update is done!
+Currently working on an improved V2 version! The chicken update is done!
 
 Submission for **[milkyway](https://milkyway.hackclub.com/)**!
 
@@ -10,10 +12,7 @@ Submission for **[milkyway](https://milkyway.hackclub.com/)**!
 
 Play the game at: https://irtaza.itch.io/cozy-farm
 
-<!-- 
-![Title Scene]()
-![Main Scene]()
--->
+<img width="1525" height="856" alt="chrome_0l6MgNzZAV" src="https://github.com/user-attachments/assets/6ee57121-a264-4f7f-92bd-a43f5a21d957" />
 
 ## Controls
 
