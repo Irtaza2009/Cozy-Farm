@@ -22,6 +22,11 @@ public class CollectibleItem : MonoBehaviour
 
         GameManager.Instance.AddResource(resourceType, amount);
 
+        if(resourceType == FarmResourceType.Egg && TutorialManager.Instance.CurrentStep == TutorialStep.CollectEgg)
+        {
+            TutorialManager.Instance.GoToStep(TutorialStep.OpenShop);
+        }
+
         Destroy(gameObject);
     }
 }

@@ -49,6 +49,11 @@ public class CoinManager : MonoBehaviour
         GameManager.Instance.AddResource(FarmResourceType.Egg, -eggs);
         GameManager.Instance.AddResource(FarmResourceType.Coin, coinsToAdd);
 
+        if(TutorialManager.Instance.CurrentStep == TutorialStep.SellEggs)
+        {
+            TutorialManager.Instance.GoToStep(TutorialStep.BuyChicken);
+        }
+
         RefreshUI();
     }
 

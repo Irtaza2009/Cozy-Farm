@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -21,6 +22,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite musicPressed;
     [SerializeField] private Sprite musicDisabled;
     [SerializeField] private Sprite musicDisabledPressed;
+
+    [Header("Shop Buttons")]
+    [SerializeField] private Button shopButton;
+    [SerializeField] private Button sellButton;
+    [SerializeField] private Button buyChickenButton;
+    [SerializeField] private Button expandButton;
+
+    // Public accessors used by other systems (e.g., TutorialManager)
+    public Button ShopButton => shopButton;
+    public Button SellButton => sellButton;
+    public Button BuyChickenButton => buyChickenButton;
+    public Button ExpandButton => expandButton;
 
     private bool isShopOpen;
     private bool isSettingsOpen;
@@ -47,6 +60,11 @@ public class UIManager : MonoBehaviour
     {
         isShopOpen = !isShopOpen;
         shopPanel.SetActive(isShopOpen);
+
+        if(TutorialManager.Instance.CurrentStep == TutorialStep.OpenShop)
+        {
+            TutorialManager.Instance.GoToStep(TutorialStep.SellEggs);
+        }
 
         if (isShopOpen && chickenManager != null)
         {

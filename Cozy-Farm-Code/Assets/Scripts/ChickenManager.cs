@@ -88,6 +88,11 @@ public class ChickenManager : MonoBehaviour
             GameManager.Instance.AddResource(FarmResourceType.Hen, 1);
         }
 
+        if(TutorialManager.Instance.CurrentStep == TutorialStep.BuyChicken)
+        {
+            TutorialManager.Instance.GoToStep(TutorialStep.ExpandIsland);
+        }
+
         RefreshUI();
 
         int totalHens = GameManager.Instance.GetResource(FarmResourceType.Hen);
