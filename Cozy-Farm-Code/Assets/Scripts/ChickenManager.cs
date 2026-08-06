@@ -90,7 +90,7 @@ public class ChickenManager : MonoBehaviour
 
         if(TutorialManager.Instance.CurrentStep == TutorialStep.BuyChicken)
         {
-            TutorialManager.Instance.GoToStep(TutorialStep.ExpandIsland);
+            TutorialManager.Instance.GoToStep(TutorialStep.Complete);
         }
 
         RefreshUI();

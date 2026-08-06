@@ -19,14 +19,27 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI hintText;
 
     private TutorialStep currentStep;
+    private const string PlayerPrefKey = "Tutorial_Completed";
 
     void Awake()
     {
         Instance = this;
+
+        if (hintText != null) hintText.gameObject.SetActive(false);
+        if (pointer != null) pointer.SetActive(false);
     }
 
     void Start()
     {
+        if (PlayerPrefs.GetInt(PlayerPrefKey, 0) == 1)
+        {
+            currentStep = TutorialStep.Complete;
+            if (hintText != null) hintText.gameObject.SetActive(false);
+            if (pointer != null) pointer.SetActive(false);
+            this.enabled = false;
+            return;
+        }
+
         StartTutorial();
     }
 
@@ -81,6 +94,11 @@ public class TutorialManager : MonoBehaviour
             case TutorialStep.Complete:
                 hintText.gameObject.SetActive(false);
                 pointer.SetActive(false);
+
+                PlayerPrefs.SetInt(PlayerPrefKey, 1);
+                PlayerPrefs.Save();
+                // Disable the component after completion so it doesn't run anymore.
+                this.enabled = false;
                 break;
         }
     }
