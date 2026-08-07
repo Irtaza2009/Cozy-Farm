@@ -9,6 +9,8 @@ public class ChickenManager : MonoBehaviour
     [SerializeField] private GameObject nestEggPrefab;
     [SerializeField] private Vector2 spawnAreaMin = new Vector2(-2f, -2f);
     [SerializeField] private Vector2 spawnAreaMax = new Vector2(2f, 2f);
+    [SerializeField] private Vector2 expandedSpawnAreaMin = new Vector2(-4f, -4f);
+    [SerializeField] private Vector2 expandedSpawnAreaMax = new Vector2(4f, 4f);
 
     [Header("Cost Settings")]
     [SerializeField] private int baseCost = 50;
@@ -18,6 +20,9 @@ public class ChickenManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private string costPrefix = "Cost: ";
     [SerializeField] private Button buyButton;
+
+    private Vector2 currentSpawnAreaMin;
+    private Vector2 currentSpawnAreaMax;
 
     private System.Action<GameManager> readyHandler;
 
@@ -44,6 +49,7 @@ public class ChickenManager : MonoBehaviour
     private void OnGameManagerReady(GameManager gm)
     {
         gm.OnResourceChanged += OnResourceChanged;
+        SyncSpawnAreaForIslandLevel(gm.GetResource(FarmResourceType.Island));
         RefreshUI();
     }
 
@@ -149,9 +155,23 @@ public class ChickenManager : MonoBehaviour
 
     private Vector3 GetRandomSpawnPosition()
     {
-        float x = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
-        float y = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
+        float x = Random.Range(currentSpawnAreaMin.x, currentSpawnAreaMax.x);
+        float y = Random.Range(currentSpawnAreaMin.y, currentSpawnAreaMax.y);
         return new Vector3(x, y, 0f);
+    }
+
+    public void SyncSpawnAreaForIslandLevel(int islandLevel)
+    {
+        if (islandLevel >= 2)
+        {
+            currentSpawnAreaMin = expandedSpawnAreaMin;
+            currentSpawnAreaMax = expandedSpawnAreaMax;
+        }
+        else
+        {
+            currentSpawnAreaMin = spawnAreaMin;
+            currentSpawnAreaMax = spawnAreaMax;
+        }
     }
 
     public void ForceRefreshUI()

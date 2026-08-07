@@ -13210,6 +13210,8 @@ MonoBehaviour:
   nestEggPrefab: {fileID: 1425464269422955952, guid: 4b6f3b777b3ffa54590ce039c6da6709, type: 3}
   spawnAreaMin: {x: -4.7, y: -3.5}
   spawnAreaMax: {x: 4.7, y: 1.5}
+  expandedSpawnAreaMin: {x: -4.7, y: -3.5}
+  expandedSpawnAreaMax: {x: 16.7, y: 1.5}
   baseCost: 10
   costIncrease: 10
   costText: {fileID: 1565319165}

@@ -43,6 +43,10 @@ public class IslandExpansionManager : MonoBehaviour
     private void OnGameManagerReady(GameManager gm)
     {
         SyncFromResource();
+        if (chickenManager != null)
+        {
+            chickenManager.SyncSpawnAreaForIslandLevel(currentLevel + 1);
+        }
         gm.OnResourceChanged += OnResourceChanged;
         RefreshUI();
     }
@@ -71,6 +75,10 @@ public class IslandExpansionManager : MonoBehaviour
         if (type == FarmResourceType.Island)
         {
             SyncFromResource();
+            if (chickenManager != null)
+            {
+                chickenManager.SyncSpawnAreaForIslandLevel(currentLevel + 1);
+            }
         }
 
         RefreshUI();
