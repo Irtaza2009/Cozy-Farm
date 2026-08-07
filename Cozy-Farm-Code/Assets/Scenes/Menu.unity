@@ -5111,6 +5111,10 @@ MonoBehaviour:
   musicPressed: {fileID: -5378648157486266345, guid: 4e608e312a5b6f342a4c823e84e43162, type: 3}
   musicDisabled: {fileID: 1877563434827047168, guid: 4e608e312a5b6f342a4c823e84e43162, type: 3}
   musicDisabledPressed: {fileID: 5206600886557049889, guid: 4e608e312a5b6f342a4c823e84e43162, type: 3}
+  shopButton: {fileID: 0}
+  sellButton: {fileID: 0}
+  buyChickenButton: {fileID: 0}
+  expandButton: {fileID: 0}
 --- !u!4 &674318466
 Transform:
   m_ObjectHideFlags: 0
@@ -5380,6 +5384,8 @@ MonoBehaviour:
   enablePanning: 1
   islandWidth: 16
   islandHeight: 15
+  panHint: {fileID: 0}
+  panDetectThreshold: 0.05
 --- !u!1 &757560526
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,11 @@
         </div>
       </div>
       <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-logo-title-footer"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">Cozy Farm</div>
+      </div>
     </div>
     <script>
       var canvas = document.querySelector("#unity-canvas");
@@ -93,8 +98,8 @@
 
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-        canvas.style.width = "880px";
-        canvas.style.height = "495px";
+        canvas.style.width = "800px";
+        canvas.style.height = "450px";
       }
 
       document.querySelector("#unity-loading-bar").style.display = "block";
@@ -106,6 +111,9 @@
           document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 document.querySelector("#unity-loading-bar").style.display = "none";
+                document.querySelector("#unity-fullscreen-button").onclick = () => {
+                  unityInstance.SetFullscreen(1);
+                };
 
               }).catch((message) => {
                 alert(message);
