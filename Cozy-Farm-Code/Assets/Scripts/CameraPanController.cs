@@ -17,12 +17,14 @@ public class CameraPanController : MonoBehaviour
     [SerializeField] private float panDetectThreshold = 0.05f;
 
     private Camera cam;
+    private CameraZoom cameraZoom;
 
     private Vector3 dragStartMouse;
     private Vector3 dragStartCam;
     private Vector3 velocity;
 
     private bool hasPanned;
+    private Vector3 boundsOrigin;
 
     private float minX, maxX, minY, maxY;
 
@@ -31,17 +33,29 @@ public class CameraPanController : MonoBehaviour
     void Awake()
     {
         cam = GetComponent<Camera>();
+        cameraZoom = GetComponent<CameraZoom>();
+        boundsOrigin = transform.position;
         RecalculateBounds();
     }
 
     void OnEnable()
     {
+        if (cameraZoom != null)
+        {
+            cameraZoom.OnZoomChanged += OnZoomChanged;
+        }
+
         readyHandler = OnGameManagerReady;
         GameManager.WhenReady(readyHandler);
     }
 
     void OnDisable()
     {
+        if (cameraZoom != null)
+        {
+            cameraZoom.OnZoomChanged -= OnZoomChanged;
+        }
+ 
         if (readyHandler != null)
         {
             GameManager.OnInstanceReady -= readyHandler;
@@ -57,6 +71,11 @@ public class CameraPanController : MonoBehaviour
     void Update()
     {
         if (!enablePanning) return;
+
+        if (Input.touchCount >= 2)
+        {
+            return;
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -98,6 +117,14 @@ public class CameraPanController : MonoBehaviour
         RecalculateBounds();
     }
 
+    private void OnZoomChanged(float zoom)
+    {
+        velocity = Vector3.zero;
+        dragStartMouse = Input.mousePosition;
+        dragStartCam = transform.position;
+        RecalculateBounds();
+    }
+
     private void OnResourceChanged(FarmResourceType type, int value)
     {
         if (type == FarmResourceType.Island)
@@ -114,8 +141,8 @@ public class CameraPanController : MonoBehaviour
 
         //enablePanning = islands > 1;
 
-        float baseX = transform.position.x;
-        float baseY = transform.position.y;
+        float baseX = boundsOrigin.x;
+        float baseY = boundsOrigin.y;
 
         minX = baseX - islandWidth;
         maxX = baseX + islandWidth;
