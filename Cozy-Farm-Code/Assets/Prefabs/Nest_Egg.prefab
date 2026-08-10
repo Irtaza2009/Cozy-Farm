@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2239990979235581874}
   - component: {fileID: 1452738820629211023}
   - component: {fileID: 315278781648076864}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Nest_Egg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,8 +79,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -468706167
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 2600149261253174582, guid: 14b7dc2b2c0ffc94c8d13791f04eab34, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -140,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7708915606683833593}
   - component: {fileID: 365027264908832764}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Nest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,8 +206,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -468706167
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -744197992327247199, guid: ae69add6115ba704b83289dec9415f1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

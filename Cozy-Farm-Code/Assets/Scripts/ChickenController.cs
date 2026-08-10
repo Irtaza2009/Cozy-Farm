@@ -30,6 +30,18 @@ public class ChickenController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        // Ensure this chicken ignores collisions with existing worker colliders
+        var myCol = GetComponent<Collider2D>();
+        if (myCol != null)
+        {
+            var workers = WorkerController.WorkerColliders;
+            for (int i = 0; i < workers.Count; i++)
+            {
+                var w = workers[i];
+                if (w != null)
+                    Physics2D.IgnoreCollision(myCol, w, true);
+            }
+        }
         PickRandomDirection();
         StartCoroutine(RandomBehaviourLoop());
         StartCoroutine(EggRoutine());
@@ -116,7 +128,22 @@ public class ChickenController : MonoBehaviour
         yield return new WaitForSeconds(2f); // time to sit down
 
         // Instantiate egg
-        Instantiate(eggPrefab, transform.position + Vector3.down * 0.05f, Quaternion.identity);
+        var egg = Instantiate(eggPrefab, transform.position + Vector3.down * 0.05f, Quaternion.identity);
+        // ensure egg ignores workers
+        if (egg != null)
+        {
+            var eggCol = egg.GetComponent<Collider2D>();
+            if (eggCol != null)
+            {
+                var workers = WorkerController.WorkerColliders;
+                for (int i = 0; i < workers.Count; i++)
+                {
+                    var w = workers[i];
+                    if (w != null)
+                        Physics2D.IgnoreCollision(eggCol, w, true);
+                }
+            }
+        }
 
         PlayAnimation(AnimSitIdle);
 

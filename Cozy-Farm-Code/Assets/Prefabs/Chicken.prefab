@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5519810700489972641}
   - component: {fileID: 2587890366326578774}
   - component: {fileID: 2392253730847720034}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chicken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,4 +220,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2172bf1e937939c488fe6637175f7aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  offset: 0
+  offset: 10
