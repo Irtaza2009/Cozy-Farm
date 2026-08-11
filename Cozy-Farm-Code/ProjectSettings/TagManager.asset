@@ -21,7 +21,7 @@ TagManager:
   - Water
   - UI
   - Animal
-  - 
+  - Resources
   - 
   - 
   - 
@@ -52,6 +52,9 @@ TagManager:
     locked: 0
   - name: Animals
     uniqueID: 3826261129
+    locked: 0
+  - name: Resources
+    uniqueID: 4020204995
     locked: 0
   m_RenderingLayers:
   - Default

@@ -6,6 +6,7 @@ public class CollectibleItem : MonoBehaviour
     [Header("Collectible Settings")]
     [SerializeField] private FarmResourceType resourceType;
     [SerializeField] private int amount = 1;
+    public FarmResourceType ResourceType => resourceType;
 
     private bool collected = false;
 

@@ -12877,6 +12877,11 @@ MonoBehaviour:
   ignoreCollisionWith:
     serializedVersion: 2
     m_Bits: 64
+  collectRadius: 0.5
+  collectibleLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  collectCheckInterval: 0.2
 --- !u!50 &1314060523
 Rigidbody2D:
   serializedVersion: 5

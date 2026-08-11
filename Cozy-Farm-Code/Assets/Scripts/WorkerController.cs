@@ -33,17 +33,12 @@ public class WorkerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
         var myCollider = GetComponent<Collider2D>();
         if (myCollider != null)
         {
-            // register this worker collider for others to reference
             WorkerColliders.Add(myCollider);
-        }
-        if (myCollider != null)
-        {
-            int mask = ignoreCollisionWith;
 
+            int mask = ignoreCollisionWith;
             var all = FindObjectsOfType<Collider2D>();
             for (int i = 0; i < all.Length; i++)
             {
@@ -56,6 +51,13 @@ public class WorkerController : MonoBehaviour
             }
         }
     }
+
+    [Header("Collection")]
+    [SerializeField] private float collectRadius = 0.5f;
+    [SerializeField] private LayerMask collectibleLayers;
+    [SerializeField] private float collectCheckInterval = 0.2f;
+
+    private float collectTimer = 0f;
 
     void OnDestroy()
     {
@@ -81,6 +83,13 @@ public class WorkerController : MonoBehaviour
         {
             PlayIdleAnimation(lastDirection);
         }
+
+        collectTimer += Time.deltaTime;
+        if (collectTimer >= collectCheckInterval)
+        {
+            collectTimer = 0f;
+            TryCollectNearby();
+        }
     }
 
     void FixedUpdate()
@@ -88,6 +97,47 @@ public class WorkerController : MonoBehaviour
         if (rb != null)
         {
             rb.linearVelocity = moveInput.normalized * moveSpeed;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        TryCollect(collision.collider);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        TryCollect(other);
+    }
+
+    private void TryCollect(Collider2D col)
+    {
+        if (col == null) return;
+
+        var collectible = col.GetComponent<CollectibleItem>();
+        if (collectible == null) return;
+
+        if (collectible.ResourceType == FarmResourceType.Egg)
+        {
+            AudioManager.Instance?.PlayClick();
+            collectible.Collect();
+        }
+    }
+
+    private void TryCollectNearby()
+    {
+        if (collectRadius <= 0f) return;
+
+        int mask = collectibleLayers;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, collectRadius, mask);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            var item = hits[i].GetComponent<CollectibleItem>();
+            if (item != null && item.ResourceType == FarmResourceType.Egg)
+            {
+                AudioManager.Instance?.PlayClick();
+                item.Collect();
+            }
         }
     }
 
