@@ -28,12 +28,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button sellButton;
     [SerializeField] private Button buyChickenButton;
     [SerializeField] private Button expandButton;
+    [SerializeField] private Button hireWorkerButton;
 
     // Public accessors used by other systems (e.g., TutorialManager)
     public Button ShopButton => shopButton;
     public Button SellButton => sellButton;
     public Button BuyChickenButton => buyChickenButton;
     public Button ExpandButton => expandButton;
+    public Button HireWorkerButton => hireWorkerButton;
 
     private bool isShopOpen;
     private bool isSettingsOpen;
