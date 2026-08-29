@@ -6,6 +6,14 @@ public class WorkerController : MonoBehaviour
     public float moveSpeed = 1.2f;
     public float directionChangeTime = 3f;
 
+    [Header("Auto Collection")]
+    [SerializeField] private float eggSearchRadius = 20f;
+    [SerializeField] private float eggSearchInterval = 0.25f;
+    [SerializeField] private float pathAlignmentTolerance = 0.08f;
+    [SerializeField, Range(0f, 1f)] private float idleChance = 0.45f;
+    [SerializeField] private float idleDuration = 2f;
+    [SerializeField] private float obstacleAvoidanceDuration = 0.5f;
+
     [Header("Animation")]
     private Animator animator;
     private Rigidbody2D rb;
@@ -21,9 +29,16 @@ public class WorkerController : MonoBehaviour
     private const string AnimWalkLeft = "Worker_Move_Left";
     private const string AnimWalkRight = "Worker_Move_Right";
 
-    private Vector2 moveInput;
+    private Vector2 moveDirection;
     private Vector2 lastDirection = Vector2.down;
     private string currentAnim = "";
+    private float eggSearchTimer;
+    private float directionTimer;
+    private float obstacleAvoidanceTimer;
+    private bool isSeekingEgg;
+    private bool isIdle;
+    private CollectibleItem targetEgg;
+    private int pathAxis;
 
     // Registry of active worker colliders so newly spawned animals/eggs can ignore them.
     public static readonly System.Collections.Generic.List<Collider2D> WorkerColliders =
@@ -70,13 +85,28 @@ public class WorkerController : MonoBehaviour
 
     void Update()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-        moveInput = new Vector2(h, v);
+        eggSearchTimer += Time.deltaTime;
+        directionTimer -= Time.deltaTime;
+        obstacleAvoidanceTimer -= Time.deltaTime;
 
-        if (moveInput.sqrMagnitude > 0.01f)
+        if (obstacleAvoidanceTimer <= 0f && eggSearchTimer >= eggSearchInterval)
         {
-            lastDirection = moveInput.normalized;
+            eggSearchTimer = 0f;
+            FindNearestEgg();
+        }
+
+        if (targetEgg != null)
+        {
+            UpdateEggPath();
+        }
+        else if (!isSeekingEgg && directionTimer <= 0f)
+        {
+            PickRandomBehavior();
+        }
+
+        if (moveDirection.sqrMagnitude > 0.01f)
+        {
+            lastDirection = moveDirection.normalized;
             PlayWalkAnimation(lastDirection);
         }
         else
@@ -96,13 +126,153 @@ public class WorkerController : MonoBehaviour
     {
         if (rb != null)
         {
-            rb.linearVelocity = moveInput.normalized * moveSpeed;
+            rb.linearVelocity = moveDirection * moveSpeed;
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void PickRandomDirection()
+    {
+        isSeekingEgg = false;
+        isIdle = false;
+        targetEgg = null;
+        int direction = Random.Range(0, 4);
+        moveDirection = direction switch
+        {
+            0 => Vector2.left,
+            1 => Vector2.right,
+            2 => Vector2.up,
+            _ => Vector2.down
+        };
+        directionTimer = directionChangeTime;
+    }
+
+    private void PickRandomBehavior()
+    {
+        if (Random.value < idleChance)
+        {
+            isIdle = true;
+            moveDirection = Vector2.zero;
+            directionTimer = idleDuration;
+            return;
+        }
+
+        PickRandomDirection();
+    }
+
+    private void FindNearestEgg()
+    {
+        if (eggSearchRadius <= 0f) return;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(
+            transform.position,
+            eggSearchRadius,
+            collectibleLayers);
+
+        CollectibleItem nearestEgg = null;
+        float nearestDistanceSqr = float.MaxValue;
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            CollectibleItem egg = hits[i].GetComponent<CollectibleItem>();
+            if (egg == null || egg.ResourceType != FarmResourceType.Egg) continue;
+
+            float distanceSqr = (egg.transform.position - transform.position).sqrMagnitude;
+            if (distanceSqr < nearestDistanceSqr)
+            {
+                nearestEgg = egg;
+                nearestDistanceSqr = distanceSqr;
+            }
+        }
+
+        if (nearestEgg != null)
+        {
+            if (targetEgg != nearestEgg)
+            {
+                targetEgg = nearestEgg;
+                pathAxis = Random.Range(0, 2);
+            }
+
+            isSeekingEgg = true;
+            isIdle = false;
+        }
+        else
+        {
+            targetEgg = null;
+            isSeekingEgg = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         TryCollect(collision.collider);
+
+        if (collision.collider.GetComponent<CollectibleItem>() != null)
+        {
+            return;
+        }
+
+        if (collision.contactCount == 0)
+        {
+            return;
+        }
+
+        Vector2 normal = collision.GetContact(0).normal;
+        targetEgg = null;
+        isSeekingEgg = false;
+        moveDirection = GetCardinalDirection(normal);
+        lastDirection = moveDirection;
+        directionTimer = directionChangeTime;
+        obstacleAvoidanceTimer = obstacleAvoidanceDuration;
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.GetComponent<CollectibleItem>() != null ||
+            collision.contactCount == 0 || obstacleAvoidanceTimer > 0f)
+        {
+            return;
+        }
+
+        targetEgg = null;
+        isSeekingEgg = false;
+        moveDirection = GetCardinalDirection(collision.GetContact(0).normal);
+        lastDirection = moveDirection;
+        directionTimer = directionChangeTime;
+        obstacleAvoidanceTimer = obstacleAvoidanceDuration;
+    }
+
+    private Vector2 GetCardinalDirection(Vector2 direction)
+    {
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            return direction.x >= 0f ? Vector2.right : Vector2.left;
+        }
+
+        return direction.y >= 0f ? Vector2.up : Vector2.down;
+    }
+
+    private void UpdateEggPath()
+    {
+        Vector2 toEgg = targetEgg.transform.position - transform.position;
+
+        if (pathAxis == 0 && Mathf.Abs(toEgg.x) <= pathAlignmentTolerance)
+        {
+            pathAxis = 1;
+        }
+        else if (pathAxis == 1 && Mathf.Abs(toEgg.y) <= pathAlignmentTolerance)
+        {
+            pathAxis = 0;
+        }
+
+        moveDirection = pathAxis == 0
+            ? new Vector2(Mathf.Sign(toEgg.x), 0f)
+            : new Vector2(0f, Mathf.Sign(toEgg.y));
+
+        if (moveDirection == Vector2.zero)
+        {
+            targetEgg = null;
+            isSeekingEgg = false;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
