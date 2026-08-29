@@ -545,8 +545,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 315, y: 94.5}
+  m_AnchoredPosition: {x: 0, y: 8}
+  m_SizeDelta: {x: 363.825, y: 109.1475}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &164840898
 MonoBehaviour:
@@ -5115,6 +5115,7 @@ MonoBehaviour:
   sellButton: {fileID: 0}
   buyChickenButton: {fileID: 0}
   expandButton: {fileID: 0}
+  hireWorkerButton: {fileID: 0}
 --- !u!4 &674318466
 Transform:
   m_ObjectHideFlags: 0
@@ -87052,8 +87053,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250, y: 60}
+  m_AnchoredPosition: {x: 0, y: -1}
+  m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2093801336
 MonoBehaviour:
@@ -87102,7 +87103,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.55
+  m_fontSize: 60
   m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -87117,7 +87118,7 @@ MonoBehaviour:
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
+  m_charWidthMaxAdj: 50
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0

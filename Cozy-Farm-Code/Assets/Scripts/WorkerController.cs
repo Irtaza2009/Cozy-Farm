@@ -10,7 +10,7 @@ public class WorkerController : MonoBehaviour
     [SerializeField] private float eggSearchRadius = 20f;
     [SerializeField] private float eggSearchInterval = 0.25f;
     [SerializeField] private float pathAlignmentTolerance = 0.08f;
-    [SerializeField, Range(0f, 1f)] private float idleChance = 0.45f;
+    [SerializeField, Range(0f, 1f)] private float idleChance = 0.8f;
     [SerializeField] private float idleDuration = 2f;
     [SerializeField] private float obstacleAvoidanceDuration = 0.5f;
 

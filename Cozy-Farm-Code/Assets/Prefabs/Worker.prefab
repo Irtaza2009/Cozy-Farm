@@ -177,6 +177,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   moveSpeed: 1.5
   directionChangeTime: 3
+  eggSearchRadius: 20
+  eggSearchInterval: 0.25
+  pathAlignmentTolerance: 0.08
+  idleChance: 0.5
+  idleDuration: 2
+  obstacleAvoidanceDuration: 0.5
   ignoreCollisionWith:
     serializedVersion: 2
     m_Bits: 64
