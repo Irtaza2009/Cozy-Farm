@@ -6267,7 +6267,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -44.5, y: 0.5}
+  m_AnchoredPosition: {x: -44, y: 0.5}
   m_SizeDelta: {x: -115, y: -17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &645468800
@@ -9950,8 +9950,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -44, y: 0.5}
-  m_SizeDelta: {x: -112, y: -17}
+  m_AnchoredPosition: {x: -43, y: -1}
+  m_SizeDelta: {x: -108, y: -16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &915772007
 MonoBehaviour:
@@ -9973,7 +9973,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5691879824064381033, guid: 6e6f4b05799422543ba91559fc66b67b, type: 3}
+  m_Sprite: {fileID: -290849068421539609, guid: 14b7dc2b2c0ffc94c8d13791f04eab34, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12089,7 +12089,7 @@ GameObject:
   - component: {fileID: 942904352}
   - component: {fileID: 942904351}
   m_Layer: 5
-  m_Name: EggIcon
+  m_Name: HenIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12112,7 +12112,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -40, y: 1}
-  m_SizeDelta: {x: -100, y: -10}
+  m_SizeDelta: {x: -100, y: -9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &942904351
 MonoBehaviour:
@@ -87165,7 +87165,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.23763394}
+  m_Offset: {x: -0.094219446, y: 0.12415373}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -87175,7 +87175,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.375, y: 2.524732}
+  m_Size: {x: 2.186561, y: 2.7516925}
   m_EdgeRadius: 0
 --- !u!1 &1893756763
 GameObject:

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6038481783281039643}
   - component: {fileID: 2531966874276224032}
   - component: {fileID: 4092390966805859077}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Worker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0034991503, y: -0.064151585}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -161,7 +161,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1.125}
+  m_Size: {x: 0.75505805, y: 0.9453758}
   m_EdgeRadius: 0
 --- !u!114 &6038481783281039643
 MonoBehaviour:
