@@ -4,15 +4,20 @@
 
 A fun and engaging farming simulation game where you can raise chickens, cows, and grow fruits! Gather resources, plant crops, and expand your farm as you manage your animals and plots.
 
-Currently working on an improved V2 version! The chicken update is done! And now you can also hire a worker to collect eggs for you! And you can pan arounf=d and zoom in and out of the island!
+**Play the game at:** https://irtaza.itch.io/cozy-farm
+
+Currently working on an improved V2 version! The chicken update is done! And now you can also hire a worker to collect eggs for you! And you can pan around and zoom in and out of the island!
 
 Submission for **[stardance](https://stardance.hackclub.com/)**!
 
-## Demo
+## Demo Images
 
 Play the game at: https://irtaza.itch.io/cozy-farm
 
-<img width="1525" height="856" alt="chrome_0l6MgNzZAV" src="https://github.com/user-attachments/assets/6ee57121-a264-4f7f-92bd-a43f5a21d957" />
+<img width="640" height="360" alt="Unity_bk8Izq1XR3" src="https://github.com/user-attachments/assets/0adef187-9faa-4ba8-9eb3-c98c1a1acad9" />
+
+<img width="640" height="360" alt="Unity_qTm1i6FSnP" src="https://github.com/user-attachments/assets/b1e131af-982f-4367-bae2-e559d6498b32" />
+
 
 ## Controls
 
@@ -32,6 +37,10 @@ Play the game at: https://irtaza.itch.io/cozy-farm
 - Add more farm animals and crops.
 - Introduce more shop items.
 - Implement different seasons affecting crop growth.
+
+## Credits
+Sprites by [CupNooble](https://cupnooble.itch.io/)!
+Sfx from pixabay.
 
 ## Credits
 
