@@ -40,10 +40,7 @@ Play the game at: https://irtaza.itch.io/cozy-farm
 
 ## Credits
 Sprites by [CupNooble](https://cupnooble.itch.io/)!
+
 Sfx from pixabay.
-
-## Credits
-
-Art assets by [Cup Nooble](https://cupnooble.itch.io/)
 
 Sfx from pixabay!
