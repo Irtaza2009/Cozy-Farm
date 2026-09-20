@@ -42,5 +42,3 @@ Play the game at: https://irtaza.itch.io/cozy-farm
 Sprites by [CupNooble](https://cupnooble.itch.io/)!
 
 Sfx from pixabay.
-
-Sfx from pixabay!
