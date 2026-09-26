@@ -8,7 +8,7 @@ A fun and engaging farming simulation game where you can raise chickens, cows, a
 
 Currently working on an improved V2 version! The chicken update is done! And now you can also hire a worker to collect eggs for you! And you can pan around and zoom in and out of the island!
 
-Submission for **[stardance](https://stardance.hackclub.com/)**!
+Submission for **[stardance](https://stardance.hackclub.com/)**, by **[Hack Club](https://hackclub.com/)**!
 
 ## Demo Images
 
